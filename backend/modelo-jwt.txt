@@ -1,0 +1,21 @@
+let auth = req.headers.authorization;
+
+  if (!auth || !auth.startsWith("Bearer")) {
+    return res.status(401).json({
+      message: "Faltou JWT de sessão"
+    });
+  } else {
+    auth = auth
+      .split("Bearer")
+      .pop()
+      .trim();
+  }
+
+  jwt.verify(auth, JWT_PASSWORD, (err, data) => {
+    if (err) {
+      return res.status(401).json({
+        message: "Sessão inválida"
+      });
+    }
+    /* colar aqui o código*/
+  });
